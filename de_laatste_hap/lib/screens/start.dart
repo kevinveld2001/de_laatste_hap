@@ -56,6 +56,8 @@ void initState() {
           Container(
             height: 250,
             color: Colors.black,
+
+            child: Image.asset("packages/de_laatste_hap/assets/header.jpg",fit: BoxFit.cover,),
           ),
           
           AnimatedContainer(
