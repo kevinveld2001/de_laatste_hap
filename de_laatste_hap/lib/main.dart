@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:flutter/services.dart';
+
 //profider
 import 'provider/getProducts.dart';
 
@@ -13,9 +15,11 @@ import 'screens/verlanglijst.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<GetProducts>(create: (_) => GetProducts()),
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
       child:MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-       
+        
         primarySwatch: primeColor,
       ),
       home: Screenbuilder(),
@@ -66,9 +70,14 @@ class Screenbuilder extends StatefulWidget {
 }
 
 class _ScreenbuilderState extends State<Screenbuilder> {
+  
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
     return Scaffold(
       
       body: ScreenSelect(_currentIndex),
@@ -85,9 +94,8 @@ class _ScreenbuilderState extends State<Screenbuilder> {
 
         },
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        elevation: 8,
-        hasInk: true, //new, gives a cute ink effect
-        inkColor: Colors.black12, //optional, uses theme color if not specified
+        elevation: 18,
+        
         items: <BubbleBottomBarItem>[
             BubbleBottomBarItem(backgroundColor: primeColor, icon: Icon(Icons.home, color: Colors.black,), activeIcon: Icon(Icons.home, color: Colors.red,), title: Text("start")),
             BubbleBottomBarItem(backgroundColor: primeColor, icon: Icon(Icons.favorite, color: Colors.black,), activeIcon: Icon(Icons.favorite, color: Colors.red,), title: Text("verlanglijst")),
