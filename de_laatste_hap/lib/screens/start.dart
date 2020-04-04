@@ -16,6 +16,7 @@ class _StartState extends State<Start> {
   
 // create an instance variable
 var _controller = ScrollController(); 
+var _controller2 = ScrollController(); 
 
 
 @override
@@ -23,34 +24,55 @@ void initState() {
   super.initState();
   // set up listener here
   _controller.addListener(() {
-    if (_controller.position.atEdge ) {
-      if (_controller.position.pixels == 0){
-        // you are at top position
-        print("i am at the top");
+    
+    setState(() {
+          _chckSwitch = true;
+          _chckSwitch2 = false;
+          
+        });
         
-      } else {
+    if (_controller.position.atEdge ) {
+      if (_controller.position.pixels != 0){
         // you are at bottom position
         print("i am at the bottom");
         setState(() {
           _chckSwitch = false;
+          _chckSwitch2 = false;
+          print("switch: "+_chckSwitch.toString());
         });
+        
       }
-    }
-  });
 
+
+    }
+
+    
+  });
+ _controller2.addListener(() {
+if (_controller2.position.atEdge ) {
+      if (_controller2.position.pixels == 0){
+        setState(() {
+          _chckSwitch = true;
+          _chckSwitch2 = false;
+          
+        });
+      }}
+ });
 
 
 }
 
 
   bool _chckSwitch = true;
+  bool _chckSwitch2 = false;
   @override
    Widget build(BuildContext context) {
+     
     return Container(
       color: Colors.black,
       child: ListView(
         controller: _controller,
-        physics: !_chckSwitch ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
+        physics: _chckSwitch2 ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
         children: <Widget>[
           
           Container(
@@ -94,8 +116,8 @@ void initState() {
                   ),
                   
                   child:ListView(
-                  
-                  physics: _chckSwitch ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
+                  controller: _controller2,
+                  physics: _chckSwitch ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(), 
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(40),

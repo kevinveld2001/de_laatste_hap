@@ -90,6 +90,7 @@ class _ScreenbuilderState extends State<Screenbuilder> {
         onTap: (page){
           setState(() {
             _currentIndex = page;
+            
           });
 
         },
