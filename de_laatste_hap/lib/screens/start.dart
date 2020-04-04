@@ -65,6 +65,7 @@ if (_controller2.position.atEdge ) {
 
   bool _chckSwitch = true;
   bool _chckSwitch2 = false;
+  bool backbutton = false;
   @override
    Widget build(BuildContext context) {
      
@@ -100,7 +101,28 @@ if (_controller2.position.atEdge ) {
 
               Container(
                 height: 90,
-                
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+
+                    //backbutton
+                    backbutton?IconButton(icon: Icon(Icons.navigate_before,color: Colors.white,size: 25,),
+                    onPressed: (){
+                      print("i want back");
+
+                    },):
+                    SizedBox(width: 25,),
+
+                    Text("de laatste hap",style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                      letterSpacing: 5.0
+                    ),),
+                    SizedBox(width: 25,)
+                  ],
+                ),
               ),
 
 
@@ -125,7 +147,9 @@ if (_controller2.position.atEdge ) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                         for(int i =0 ; i<100; i++)
-                          Text("dit is tekt $i")
+                          Text("dit is tekt $i",style: TextStyle(
+                            // fontFamily: "sen"
+                          ),)
                         
                       ],),
                     )

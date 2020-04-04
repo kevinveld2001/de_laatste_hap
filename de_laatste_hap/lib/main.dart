@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<GetProducts>(create: (_) => GetProducts()),
       ],
       child:MaterialApp(
-      title: 'Flutter Demo',
+      title: 'de laatste hap',
       theme: ThemeData(
-        
+        fontFamily: "sen",
         primarySwatch: primeColor,
       ),
       home: Screenbuilder(),
