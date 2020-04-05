@@ -30,6 +30,7 @@ void loadProducts() async{
           ds.data["url"],
           ds.documentID));
       });
+      notifyListeners();
     });
        
 }

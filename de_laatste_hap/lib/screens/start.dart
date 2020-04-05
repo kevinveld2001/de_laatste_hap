@@ -70,8 +70,9 @@ if (_controller2.position.atEdge ) {
   @override
    Widget build(BuildContext context) {
     var getProductsState = Provider.of<GetProducts>(context);
-    getProductsState.loadProducts();
-
+    if(getProductsState.productList.length == 0){
+          getProductsState.loadProducts();
+    }
     return Container(
       color: Colors.black,
       child: ListView(
@@ -148,16 +149,14 @@ if (_controller2.position.atEdge ) {
                       padding: EdgeInsets.only(top:40,bottom: 40),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        
+
                         children: <Widget>[
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
-                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+
+                        for(int i=0; i < getProductsState.productList.length; i++)
+                        ProductCard(
+                        getProductsState.productList[i].url,
+                        getProductsState.productList[i].name,
+                        getProductsState.productList[i].prijs),
                         
                         
                       ],),
