@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-
-
-
-
-
+import '../provider/getProducts.dart';
+import '../widgets/productCard.dart';
 
 class Start extends StatefulWidget {
   @override
@@ -63,12 +61,17 @@ if (_controller2.position.atEdge ) {
 }
 
 
+
+
+
   bool _chckSwitch = true;
   bool _chckSwitch2 = false;
   bool backbutton = false;
   @override
    Widget build(BuildContext context) {
-     
+    var getProductsState = Provider.of<GetProducts>(context);
+    getProductsState.loadProducts();
+
     return Container(
       color: Colors.black,
       child: ListView(
@@ -142,14 +145,20 @@ if (_controller2.position.atEdge ) {
                   physics: _chckSwitch ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(), 
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(40),
+                      padding: EdgeInsets.only(top:40,bottom: 40),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        
                         children: <Widget>[
-                        for(int i =0 ; i<100; i++)
-                          Text("dit is tekt $i",style: TextStyle(
-                            // fontFamily: "sen"
-                          ),)
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        ProductCard("https://sushi81.nl/wp-content/uploads/2017/05/Uramaki-klein-300x210.jpg",'sushi',5.7),
+                        
                         
                       ],),
                     )
