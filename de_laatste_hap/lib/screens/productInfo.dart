@@ -62,7 +62,7 @@ if (_controller2.position.atEdge ) {
 
 }
 Future blackshadowup(){
-  Future.delayed(const Duration(milliseconds: 200), () {
+  Future.delayed(const Duration(milliseconds: 50), () {
     setState(() {
       blackshadow = 40.0;
     });
@@ -107,7 +107,7 @@ Future blackshadowup(){
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       AnimatedContainer(
-                        duration: Duration(milliseconds: 600),
+                        duration: Duration(milliseconds: 300),
                         height: blackshadow,
                         decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -204,11 +204,14 @@ Future blackshadowup(){
                        style: TextStyle(
                          fontSize: 18,
                        ),),
-                       SizedBox(height: 20,),
+                       SizedBox(height: 50,),
                        
                       RaisedButton(
-                        child: Text("toevoegen aan verlanglijst"),
+                        child: Text("toevoegen aan verlanglijst",style: TextStyle(
+                          color: Colors.white
+                        ),),
                         onPressed: (){},
+                        color: Color(0xFFBE0029),
                       ),
                        SizedBox(height: 150,),
                         
