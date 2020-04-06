@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
-
+import '../screens/productInfo.dart';
 
 class ProductCard extends StatelessWidget {
-  ProductCard(this.url,this.title,this.prijs);
+  ProductCard(this.url,this.title,this.prijs,this.index);
   final String url;
   final String title;
   final double prijs;
+  final int index; 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return  Card(
       
       elevation: 3,
+      child:GestureDetector(
+      onTap: (){
+        print("it works tap:" +index.toString());
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProductInfo(index)),
+        );
+      },
       child: Container(
         width: 280,
         height: 115,
@@ -32,7 +41,10 @@ class ProductCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child:Container(
                     height: 115,
+                    child:Hero(
+                    tag: 'imageHero'+index.toString(),
                     child: Image.asset("packages/de_laatste_hap/assets/card.png",fit: BoxFit.fitHeight,),
+                    ),
                   )
                   
                 ),
@@ -65,7 +77,7 @@ class ProductCard extends StatelessWidget {
           )
 
         ],),
-      ),
+      )),
     );
   }
 }

@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/getProducts.dart';
-import '../widgets/productCard.dart';
 
-class Start extends StatefulWidget {
+
+
+class ProductInfo extends StatefulWidget {
+   ProductInfo(this.index);
+  final int index;
   @override
-  _StartState createState() => _StartState();
-
+  _ProductInfoState createState() => _ProductInfoState();
 }
 
-class _StartState extends State<Start> {
-  
+class _ProductInfoState extends State<ProductInfo> {
+    
 // create an instance variable
 var _controller = ScrollController(); 
 var _controller2 = ScrollController(); 
@@ -59,32 +61,68 @@ if (_controller2.position.atEdge ) {
 
 
 }
+Future blackshadowup(){
+  Future.delayed(const Duration(milliseconds: 200), () {
+    setState(() {
+      blackshadow = 40.0;
+    });
+  });
+}
 
 
-
-
-
+  double blackshadow = 0;
   bool _chckSwitch = true;
   bool _chckSwitch2 = false;
-  bool backbutton = false;
+  bool backbutton = true;
   @override
    Widget build(BuildContext context) {
+     blackshadowup();
     var getProductsState = Provider.of<GetProducts>(context);
     if(getProductsState.productList.length == 0){
           getProductsState.loadProducts();
     }
-    return Container(
+    return Scaffold(
+      body: Container(
       color: Colors.black,
       child: ListView(
         controller: _controller,
         physics: _chckSwitch2 ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(),
         children: <Widget>[
-          
+        
           Container(
             height: 250,
             color: Colors.black,
+              child:Stack(children: <Widget>[
+                Container(
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  child:Hero(
+                  tag: 'imageHero'+widget.index.toString(),
+                  child:Image.network(getProductsState.productList[widget.index].url,fit: BoxFit.cover,),),
+                ),
+                Container(
+                  height: 250,
+                  width: MediaQuery.of(context).size.width,
+                  child:Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      AnimatedContainer(
+                        duration: Duration(milliseconds: 600),
+                        height: blackshadow,
+                        decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.transparent, Colors.black])),
+                      )
+                  ],)
+                ),
+                
 
-            child: Image.asset("packages/de_laatste_hap/assets/header.jpg",fit: BoxFit.cover,),
+              ],) 
+              
+              
+            
           ),
           
           AnimatedContainer(
@@ -100,7 +138,7 @@ if (_controller2.position.atEdge ) {
                       topRight: Radius.circular(36.0),
                     )
                   ),
-            height: MediaQuery.of(context).size.height - 60,
+            height: MediaQuery.of(context).size.height,
             child: Column(children: <Widget>[
 
               Container(
@@ -114,6 +152,7 @@ if (_controller2.position.atEdge ) {
                     backbutton?IconButton(icon: Icon(Icons.navigate_before,color: Colors.white,size: 25,),
                     onPressed: (){
                       print("i want back");
+                      Navigator.pop(context);
 
                     },):
                     SizedBox(width: 25,),
@@ -146,19 +185,32 @@ if (_controller2.position.atEdge ) {
                   physics: _chckSwitch ? const  NeverScrollableScrollPhysics() : const AlwaysScrollableScrollPhysics(), 
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(top:40,bottom: 40),
+                      padding: EdgeInsets.all(40),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: <Widget>[
-
-                        for(int i=0; i < getProductsState.productList.length; i++)
-                        ProductCard(
-                        getProductsState.productList[i].url,
-                        getProductsState.productList[i].name,
-                        getProductsState.productList[i].prijs,
-                        i),
-                        
+                          
+                       Text(getProductsState.productList[widget.index].name,style: TextStyle(
+                       fontSize: 40,
+                       fontWeight: FontWeight.w600
+                       ),),
+                       SizedBox(height: 20,),
+                       Text(getProductsState.productList[widget.index].description,style: TextStyle(
+                         fontSize: 18,
+                       ),),
+                       SizedBox(height: 20,),
+                       Text("prijs: €" +getProductsState.productList[widget.index].prijs.toStringAsFixed(2),
+                       style: TextStyle(
+                         fontSize: 18,
+                       ),),
+                       SizedBox(height: 20,),
+                       
+                      RaisedButton(
+                        child: Text("toevoegen aan verlanglijst"),
+                        onPressed: (){},
+                      ),
+                       SizedBox(height: 150,),
                         
                       ],),
                     )
@@ -178,6 +230,6 @@ if (_controller2.position.atEdge ) {
 
 
         ],
-    ));
+    )));
   }
 }
