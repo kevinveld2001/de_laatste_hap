@@ -37,6 +37,7 @@ void initState() {
           _chckSwitch = false;
           _chckSwitch2 = false;
           print("switch: "+_chckSwitch.toString());
+           _controller2.animateTo(5.0, duration: Duration(milliseconds: 300), curve: Curves.linear);
         });
         
       }
@@ -52,7 +53,7 @@ if (_controller2.position.atEdge ) {
         setState(() {
           _chckSwitch = true;
           _chckSwitch2 = false;
-          
+          _controller.animateTo(_controller.position.pixels - 5.0, duration: Duration(milliseconds: 300), curve: Curves.linear);
         });
       }}
  });
