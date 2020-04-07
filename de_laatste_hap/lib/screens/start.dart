@@ -53,7 +53,7 @@ if (_controller2.position.atEdge ) {
         setState(() {
           _chckSwitch = true;
           _chckSwitch2 = false;
-          _controller.animateTo(_controller.position.pixels - 5.0, duration: Duration(milliseconds: 300), curve: Curves.linear);
+          _controller.animateTo(_controller.position.pixels - 20.0, duration: Duration(milliseconds: 300), curve: Curves.linear);
         });
       }}
  });
