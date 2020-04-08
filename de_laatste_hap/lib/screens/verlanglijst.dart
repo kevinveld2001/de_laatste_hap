@@ -3,8 +3,10 @@ import 'askToLoginScreen.dart';
 
 import '../provider/login.dart';
 import 'package:provider/provider.dart';
+import '../provider/verlanglijst.dart';
+import '../provider/getProducts.dart';
 
-
+import '../widgets/productCard.dart';
 
 class Verlanglijst extends StatelessWidget {
   @override
@@ -19,6 +21,11 @@ class VelanglijstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var loginState = Provider.of<LoginState>(context);
+    var getProducts = Provider.of<GetProducts>(context);
+    var wishListState = Provider.of<WishListState>(context);
+    if(wishListState.wishList.length == 0){
+      wishListState.loadWishList(loginState.userID,getProducts.productList);
+    }
     return Container(
       color: Color(0xFFBE0029),
       child:Column(
@@ -33,7 +40,7 @@ class VelanglijstScreen extends StatelessWidget {
 
                     //backbutton
                    
-                    
+                    SizedBox(width: 20,),
 
                     Text("de laatste hap",style: TextStyle(
                       color: Colors.white,
@@ -41,7 +48,12 @@ class VelanglijstScreen extends StatelessWidget {
                       fontSize: 25,
                       letterSpacing: 5.0
                     ),),
-                   
+                    IconButton(
+                      icon: Icon(Icons.exit_to_app,color: Colors.white,),
+                      onPressed: (){
+                        loginState.logout();
+                      },
+                    )
                   ],
                 ),
               ),
@@ -73,14 +85,15 @@ class VelanglijstScreen extends StatelessWidget {
                           Text(loginState.email,style: TextStyle(
                             fontSize: 15,
                           ),),
-                          RaisedButton(onPressed: (){
-
-                            loginState.logout();
-
-                          }, child:Text("uitloggen"))
-                        
+                          SizedBox(height: 20,),
                      
-
+                          for(int i=0; i < wishListState.wishList.length; i++)
+                        ProductCard(
+                        wishListState.wishList[i].url,
+                        wishListState.wishList[i].name,
+                        wishListState.wishList[i].prijs,
+                        i,
+                         true,),
 
 
                     ],),),

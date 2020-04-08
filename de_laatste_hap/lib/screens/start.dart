@@ -158,7 +158,8 @@ if (_controller2.position.atEdge ) {
                         getProductsState.productList[i].url,
                         getProductsState.productList[i].name,
                         getProductsState.productList[i].prijs,
-                        i),
+                        i,
+                        false),
                         
                         
                       ],),

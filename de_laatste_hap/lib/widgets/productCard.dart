@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import '../screens/productInfo.dart';
 
 class ProductCard extends StatelessWidget {
-  ProductCard(this.url,this.title,this.prijs,this.index);
+  ProductCard(this.url,this.title,this.prijs,this.index, this.fromWhishListBool);
   final String url;
   final String title;
   final double prijs;
   final int index; 
+  final bool fromWhishListBool;
   @override
   Widget build(BuildContext context) {
     return  Card(
@@ -17,7 +18,7 @@ class ProductCard extends StatelessWidget {
         print("it works tap:" +index.toString());
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProductInfo(index)),
+          MaterialPageRoute(builder: (context) => ProductInfo(index,fromWhishListBool,)),
         );
       },
       child: Container(

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/getProducts.dart';
-
+import '../provider/verlanglijst.dart';
+import '../provider/login.dart';
 
 
 class ProductInfo extends StatefulWidget {
-   ProductInfo(this.index);
+   ProductInfo(this.index,this.fromWhishList);
   final int index;
+  final bool fromWhishList;
   @override
   _ProductInfoState createState() => _ProductInfoState();
 }
@@ -70,6 +72,12 @@ Future blackshadowup(){
   });
 }
 
+Future removeFromWhisList(var wishListState, var loginState, var productList){
+  Future.delayed(const Duration(milliseconds: 100), () {
+    wishListState.removeFromWishList(loginState.userID, productList[widget.index].id);
+  });
+}
+
 
   double blackshadow = 0;
   bool _chckSwitch = true;
@@ -78,8 +86,23 @@ Future blackshadowup(){
   @override
    Widget build(BuildContext context) {
      blackshadowup();
+
+
+//provider
     var getProductsState = Provider.of<GetProducts>(context);
-    if(getProductsState.productList.length == 0){
+    var loginState = Provider.of<LoginState>(context);
+    var wishListState = Provider.of<WishListState>(context);
+      var productList;
+    if(widget.fromWhishList){
+      productList = wishListState.wishList;
+    }else{
+      productList = getProductsState.productList;
+    }
+    
+    
+
+
+    if(productList.length == 0){
           getProductsState.loadProducts();
     }
     return Scaffold(
@@ -99,7 +122,7 @@ Future blackshadowup(){
                   width: MediaQuery.of(context).size.width,
                   child:Hero(
                   tag: 'imageHero'+widget.index.toString(),
-                  child:Image.network(getProductsState.productList[widget.index].url,fit: BoxFit.cover,),),
+                  child:Image.network(productList[widget.index].url,fit: BoxFit.cover,),),
                 ),
                 Container(
                   height: 250,
@@ -192,28 +215,53 @@ Future blackshadowup(){
 
                         children: <Widget>[
                           
-                       Text(getProductsState.productList[widget.index].name,style: TextStyle(
+                       Text(productList[widget.index].name,style: TextStyle(
                        fontSize: 40,
                        fontWeight: FontWeight.w600
                        ),),
                        SizedBox(height: 20,),
-                       Text(getProductsState.productList[widget.index].description,style: TextStyle(
+                       Text(productList[widget.index].description,style: TextStyle(
                          fontSize: 18,
                        ),),
                        SizedBox(height: 20,),
-                       Text("prijs: €" +getProductsState.productList[widget.index].prijs.toStringAsFixed(2),
+                       Text("prijs: €" +productList[widget.index].prijs.toStringAsFixed(2),
                        style: TextStyle(
                          fontSize: 18,
                        ),),
                        SizedBox(height: 50,),
                        
+                      loginState.userID !=null?
+
                       RaisedButton(
-                        child: Text("toevoegen aan verlanglijst",style: TextStyle(
+                        child: 
+                        
+                        wishListState.isInList(productList[widget.index].id)?
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                          Icon(Icons.delete,color: Colors.white,),
+                          Text("verwijderen uit verlanglijst",style: TextStyle(
                           color: Colors.white
                         ),),
-                        onPressed: (){},
+                        ],)
+                        :
+                        Text("toevoegen aan verlanglijst",style: TextStyle(
+                          color: Colors.white
+                        ),),
+                        
+                      
+                        onPressed: (){
+                          if(wishListState.isInList(productList[widget.index].id)){
+                            Navigator.pop(context);
+                            removeFromWhisList(wishListState,loginState,productList);
+
+                          }else {
+                            wishListState.addToWishList(productList[widget.index].id, loginState.userID);
+                          }
+                        },
                         color: Color(0xFFBE0029),
-                      ),
+                      ):
+                      Text("login om toe te voegen aan verlanglijst"),
                        SizedBox(height: 150,),
                         
                       ],),
