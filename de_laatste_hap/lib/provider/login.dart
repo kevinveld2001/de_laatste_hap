@@ -4,8 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 class LoginState with ChangeNotifier{
 
   String _userID;
+  String _email;
 
   String get userID => _userID;
+  String get email => _email;
+
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
@@ -15,12 +18,12 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
       if(value == null){
         
         _userID = null;
-        
+        _email = null;
         notifyListeners();
       }else{
         
         _userID = value.uid;
-       
+        _email = value.email;
         notifyListeners();
       }
       
@@ -57,7 +60,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
       password: password
       ).then((v){
         _userID = v.user.uid;
-        
+        _email = v.user.email;
         print(_userID);
         notifyListeners();
       }).catchError((err){
@@ -79,7 +82,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
         print (err);
       }
       _userID = v.user.uid;
-     
+      _email = v.user.email;
       print(_userID);
       
       notifyListeners();
@@ -95,6 +98,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
   void logout(){
     _auth.signOut();
       _userID = null;
+      _email = null;
     notifyListeners();
     
   }

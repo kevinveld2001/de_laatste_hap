@@ -6,16 +6,17 @@ import 'package:provider/provider.dart';
 
 
 
-class LoginScreen extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
 
   final _formKey = GlobalKey<FormState>();
   String _email = "";
   String _password = "";
+  String _password2 = "";
 
 
   @override
@@ -112,17 +113,41 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
+                          SizedBox(height: 20,),
+                           TextFormField(
+                             obscureText: true,
+                            decoration: InputDecoration(
+                              
+                              hintText: "repeat your password",
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'enter your password';
+                              }
+                              if(value.length <6){
+                                return 'password not long enough';
+                              }
+                              if(value != _password){
+                                return "repeat your password";
+                              }
+                              _password2 = value;
+                              return null;
+                            },
+                          ),
                           SizedBox(height: 40,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                            RaisedButton(child: Text("login",style: TextStyle(
+                            RaisedButton(child: Text("registreren",style: TextStyle(
                               color: Colors.white
                             ),),
                             onPressed: (){
                                 
                               if (_formKey.currentState.validate()) {
-                                loginState.loginByEmail(_email, _password);
+
+                               loginState.registerByEmail(_email, _password2);
+
+
                               }
                             },
                             color: Color(0xFFBE0029),

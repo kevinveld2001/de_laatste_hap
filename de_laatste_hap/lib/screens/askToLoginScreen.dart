@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'registration.dart';
 
 
 class AskToLoginScreen extends StatelessWidget {
@@ -33,7 +34,15 @@ class AskToLoginScreen extends StatelessWidget {
           },
           color: Color(0xFFBE0029),
           ),
-
+          RaisedButton(
+            child: Text("registreren"),
+            onPressed: (){
+               Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RegistrationScreen()),
+            );
+            },
+          )
 
           ],));
   }
