@@ -98,6 +98,11 @@ Future removeFromWhisList(var wishListState, var loginState, var productList){
     }else{
       productList = getProductsState.productList;
     }
+
+    if(loginState.userID !=null && wishListState.wishList.length == 0){
+      wishListState.loadWishList(loginState.userID,getProductsState.productList);
+
+    }
     
     
 
