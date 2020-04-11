@@ -6,8 +6,7 @@ import 'askToLoginScreen.dart';
 
 import '../provider/login.dart';
 import 'package:provider/provider.dart';
-import '../provider/verlanglijst.dart';
-import '../provider/getProducts.dart';
+import '../provider/tafel.dart';
 
 class Reserveren extends StatelessWidget {
   @override
@@ -51,11 +50,19 @@ Future<DateTime> datePicker(BuildContext context){
   );
 } 
 
+Future loadTafelData(var tafelState,){
+  Future.delayed(const Duration(milliseconds: 500), () {
+    if(tafelState.rawTafelList[0]== "tafel data laden..."){
+      tafelState.loadPosibleTafel();
+    }
+  });
+}
+
   @override
   Widget build(BuildContext context) {
     var loginState = Provider.of<LoginState>(context);
-    
-   
+    var tafelState = Provider.of<TafelState>(context);
+    loadTafelData(tafelState);
 
     userID = loginState.userID;
     email = loginState.email;
@@ -219,7 +226,7 @@ Future<DateTime> datePicker(BuildContext context){
                                     });
                                   },
                                   
-                                  items: <String>['tafel 4 - 2 personen', '13:00', '14:00', '15:00',"16:00","17:00","18:00","19:00","20:00","21:00","22:00"]
+                                  items: tafelState.rawTafelList
                                     .map<DropdownMenuItem<String>>((String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,

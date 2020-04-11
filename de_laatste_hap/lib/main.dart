@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'provider/getProducts.dart';
 import 'provider/login.dart';
 import 'provider/verlanglijst.dart';
+import 'provider/tafel.dart';
 //screens
 import 'screens/reserveren.dart';
 import 'screens/start.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<GetProducts>(create: (_) => GetProducts()),
         ChangeNotifierProvider<LoginState>(create: (_) => LoginState()),
         ChangeNotifierProvider<WishListState>(create: (_) => WishListState()),
+        ChangeNotifierProvider<TafelState>(create: (_) => TafelState()),
       ],
       child:MaterialApp(
       title: 'de laatste hap',
