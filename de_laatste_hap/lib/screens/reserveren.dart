@@ -8,6 +8,8 @@ import '../provider/login.dart';
 import 'package:provider/provider.dart';
 import '../provider/tafel.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Reserveren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ String firstname;
 String lastname;
 DateTime datum;
 int uur;
-String tavel;
+String tafel;
 String email;
 String userID;
 
@@ -45,24 +47,18 @@ Future<DateTime> datePicker(BuildContext context){
  return showDatePicker(
   context: context,
   initialDate: datum==null?DateTime.now():datum,
-  firstDate: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day ,DateTime.now().day -1),
+  firstDate: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day ,DateTime.now().hour -1),
   lastDate: DateTime(DateTime.now().year + 2),
   );
 } 
 
-Future loadTafelData(var tafelState,){
-  Future.delayed(const Duration(milliseconds: 500), () {
-    if(tafelState.rawTafelList[0]== "tafel data laden..."){
-      tafelState.loadPosibleTafel();
-    }
-  });
-}
+
 
   @override
   Widget build(BuildContext context) {
     var loginState = Provider.of<LoginState>(context);
     var tafelState = Provider.of<TafelState>(context);
-    loadTafelData(tafelState);
+    
 
     userID = loginState.userID;
     email = loginState.email;
@@ -172,7 +168,7 @@ Future loadTafelData(var tafelState,){
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: <Widget>[
                                   DropdownButton<String>(
-                                    hint: Text("datum"),
+                                    hint: Text("tijd"),
 
                                   value: dropdownValue,
                                   icon: Icon(Icons.timer),
@@ -190,10 +186,16 @@ Future loadTafelData(var tafelState,){
                                       if(newValue == timelist[i]){
                                         uur = i + 12;
                                         print(uur.toString()+" uur");
+
+                                        
                                       }
                                     }
 
-
+                                        if(datum !=null){
+                                          if(tafelState.rawTafelList[0]== "tafel data laden..."){
+                                              tafelState.loadPosibleTafel();
+                                            }
+                                        }
                                     setState(() {
                                       dropdownValue = newValue;
                                     });
@@ -221,7 +223,9 @@ Future loadTafelData(var tafelState,){
                                     color: Colors.grey,
                                   ),
                                   onChanged: (String newValue) {
+                                    
                                     setState(() {
+                                      tafel = newValue;
                                       tafelValue = newValue;
                                     });
                                   },
@@ -243,7 +247,36 @@ Future loadTafelData(var tafelState,){
                           SizedBox(
                             width: double.infinity,
                             child: RaisedButton(
-                              onPressed: (){},
+                              onPressed: (){
+
+                                DateTime date = DateTime(datum.year,datum.month,datum.day,uur);
+                                print('laats reservering:\n');
+                                print('voornaam:$firstname');
+                                print('achternaam:$lastname');
+                                print('datum:$date');
+                                print('tafel:$tafel');
+                                print('email:${loginState.email}');
+                                print('userid:${loginState.userID}');
+
+                                Firestore.instance.collection('reseveringen').document()
+                                .setData({
+                                  "voornaam": firstname,
+                                  'achternaam': lastname,
+                                  "datum":date,
+                                  "tafel":tafel,
+                                  "email":loginState.email,
+                                  "userid":loginState.userID
+                                     });
+                                     setState(() {
+                                       firstname = null;
+                                       lastname = null;
+                                       datum = null;
+                                       uur=null;
+                                       tafel = null;
+                                     });
+
+
+                              },
                               color: Color(0xFFBE0029),
                               child: Text("Resevering plaatsen",style: TextStyle(
                                 color: Colors.white,
