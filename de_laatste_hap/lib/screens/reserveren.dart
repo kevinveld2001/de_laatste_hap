@@ -7,6 +7,7 @@ import 'askToLoginScreen.dart';
 import '../provider/login.dart';
 import 'package:provider/provider.dart';
 import '../provider/tafel.dart';
+import '../screens/reserverendone.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -31,8 +32,7 @@ String lastname;
 DateTime datum;
 int uur;
 String tafel;
-String email;
-String userID;
+
 
 class ReserverenScreen extends StatefulWidget {
 
@@ -51,7 +51,13 @@ Future<DateTime> datePicker(BuildContext context){
   lastDate: DateTime(DateTime.now().year + 2),
   );
 } 
+final _firstnameinput = TextEditingController();
+final _lastnameinput = TextEditingController();
 
+void clearTextInput(){
+  _firstnameinput.clear();
+  _lastnameinput.clear();
+}
 
 
   @override
@@ -60,8 +66,7 @@ Future<DateTime> datePicker(BuildContext context){
     var tafelState = Provider.of<TafelState>(context);
     
 
-    userID = loginState.userID;
-    email = loginState.email;
+   
 
     return  SingleChildScrollView(
           child: Container(
@@ -118,6 +123,7 @@ Future<DateTime> datePicker(BuildContext context){
                            
                               TextField(
                                 cursorColor:Color(0xFFBE0029),
+                                controller: _firstnameinput,
                                 onChanged: (v){
                                   firstname = v;
                                 },
@@ -129,6 +135,7 @@ Future<DateTime> datePicker(BuildContext context){
                               SizedBox(height: 20,),
                               TextField(
                                 cursorColor:Color(0xFFBE0029),
+                                controller: _lastnameinput,
                                 onChanged: (v){
                                   lastname = v;
                                 },
@@ -267,13 +274,29 @@ Future<DateTime> datePicker(BuildContext context){
                                   "email":loginState.email,
                                   "userid":loginState.userID
                                      });
+                                       
+                                       String okfirst = firstname;
+                                       String oklast = lastname;
+                                       String oktafel = tafel;
+                                       Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => ReserverendoneScreen(
+                                          okfirst,
+                                          oklast,
+                                          oktafel,
+                                          date
+                                        )),
+                                      );
                                      setState(() {
-                                       firstname = null;
-                                       lastname = null;
-                                       datum = null;
-                                       uur=null;
-                                       tafel = null;
+                                        dropdownValue = null;
+                                        tafelValue = null;
+                                        firstname = null;
+                                        lastname = null;
+                                        datum = null;
+                                        uur = null;
+                                        tafel = null;
                                      });
+                                     clearTextInput();
 
 
                               },
