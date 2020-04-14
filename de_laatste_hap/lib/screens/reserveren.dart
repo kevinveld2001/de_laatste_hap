@@ -156,11 +156,18 @@ void clearTextInput(){
                                   DateTime pickeddate = await datePicker(context);
                                   print(pickeddate.toString());
                                   if(pickeddate != nu){
+                                    
                                     setState(() {
                                       datum = pickeddate;
 
                                     });
-                                  
+                                  if(uur !=null){
+                                          
+                                              
+                                              DateTime date = DateTime(datum.year,datum.month,datum.day,uur);
+                                              tafelState.loadPosibleTafel(date);
+                                            
+                                        }
                                   }
                                   // print(DateTime(pickeddate.year,pickeddate.month,pickeddate.day, 12).toString());
                                 },
@@ -199,9 +206,11 @@ void clearTextInput(){
                                     }
 
                                         if(datum !=null){
-                                          if(tafelState.rawTafelList[0]== "tafel data laden..."){
-                                              tafelState.loadPosibleTafel();
-                                            }
+                                          
+                                              
+                                              DateTime date = DateTime(datum.year,datum.month,datum.day,uur);
+                                              tafelState.loadPosibleTafel(date);
+                                            
                                         }
                                     setState(() {
                                       dropdownValue = newValue;
@@ -239,10 +248,16 @@ void clearTextInput(){
                                   
                                   items: tafelState.rawTafelList
                                     .map<DropdownMenuItem<String>>((String value) {
+                                      if(value != "tafel data laden..."){
                                       return DropdownMenuItem<String>(
                                         value: value,
                                         child: Text(value),
                                       );
+                                      } else {
+                                        return DropdownMenuItem<String>(
+                                          child: Text(value),
+                                        );
+                                      }
                                     })
                                     .toList(),
                             ),
@@ -264,7 +279,9 @@ void clearTextInput(){
                                 print('tafel:$tafel');
                                 print('email:${loginState.email}');
                                 print('userid:${loginState.userID}');
-
+                                if(firstname!=null&&lastname!=null&&
+                                date!=null&&tafel!=null&&
+                                loginState.email!=null&&loginState.userID!=null&&tafel!="tafel data laden..."){
                                 Firestore.instance.collection('reseveringen').document()
                                 .setData({
                                   "voornaam": firstname,
@@ -297,7 +314,7 @@ void clearTextInput(){
                                         tafel = null;
                                      });
                                      clearTextInput();
-
+                                }
 
                               },
                               color: Color(0xFFBE0029),
