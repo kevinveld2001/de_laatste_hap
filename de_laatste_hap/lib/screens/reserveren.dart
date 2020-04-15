@@ -8,6 +8,8 @@ import '../provider/login.dart';
 import 'package:provider/provider.dart';
 import '../provider/tafel.dart';
 import '../screens/reserverendone.dart';
+import '../provider/adminCheck.dart';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -64,7 +66,7 @@ void clearTextInput(){
   Widget build(BuildContext context) {
     var loginState = Provider.of<LoginState>(context);
     var tafelState = Provider.of<TafelState>(context);
-    
+    var adminCheckState = Provider.of<AdminCheck>(context);
 
    
 
@@ -95,6 +97,7 @@ void clearTextInput(){
                         icon: Icon(Icons.exit_to_app,color: Colors.white,),
                         onPressed: (){
                           loginState.logout();
+                          adminCheckState.logout(); 
                         },
                       )
                     ],

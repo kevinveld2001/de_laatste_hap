@@ -8,6 +8,7 @@ import 'provider/getProducts.dart';
 import 'provider/login.dart';
 import 'provider/verlanglijst.dart';
 import 'provider/tafel.dart';
+import 'provider/adminCheck.dart';
 //screens
 import 'screens/reserveren.dart';
 import 'screens/start.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LoginState>(create: (_) => LoginState()),
         ChangeNotifierProvider<WishListState>(create: (_) => WishListState()),
         ChangeNotifierProvider<TafelState>(create: (_) => TafelState()),
+        ChangeNotifierProvider<AdminCheck>(create: (_) =>AdminCheck()),
       ],
       child:MaterialApp(
       title: 'de laatste hap',
@@ -77,8 +79,16 @@ class Screenbuilder extends StatefulWidget {
 class _ScreenbuilderState extends State<Screenbuilder> {
   
   int _currentIndex = 0;
+  String _admincheckdoneonUserID;
   @override
   Widget build(BuildContext context) {
+    var loginState = Provider.of<LoginState>(context);
+    var adminCheckState = Provider.of<AdminCheck>(context);
+
+
+    
+
+
     SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
@@ -106,6 +116,8 @@ class _ScreenbuilderState extends State<Screenbuilder> {
             BubbleBottomBarItem(backgroundColor: primeColor, icon: Icon(Icons.home, color: Colors.black,), activeIcon: Icon(Icons.home, color: Colors.red,), title: Text("start")),
             BubbleBottomBarItem(backgroundColor: primeColor, icon: Icon(Icons.favorite, color: Colors.black,), activeIcon: Icon(Icons.favorite, color: Colors.red,), title: Text("verlanglijst")),
             BubbleBottomBarItem(backgroundColor: primeColor, icon: Icon(Icons.edit, color: Colors.black,), activeIcon: Icon(Icons.edit, color: Colors.red,), title: Text("reserveren")),
+            if(adminCheckState.isAdmin)
+            BubbleBottomBarItem(backgroundColor: primeColor, icon: Icon(Icons.dashboard, color: Colors.black,), activeIcon: Icon(Icons.dashboard, color: Colors.red,), title: Text("admin page"))
             
         ],
       ),
@@ -121,6 +133,15 @@ class ScreenSelect extends StatelessWidget {
   final int page;
   @override
   Widget build(BuildContext context) {
+    var loginState = Provider.of<LoginState>(context);
+    var adminCheckState = Provider.of<AdminCheck>(context);
+
+
+    if(loginState.userID != null){
+      if(loginState.userID != adminCheckState.checkedID){
+        adminCheckState.checkIfIamAdmin(loginState.userID);
+      }
+    }
     switch(page){
       case 0:
         return Start();
@@ -130,6 +151,9 @@ class ScreenSelect extends StatelessWidget {
       break;
       case 2:
         return Reserveren();
+      break;
+      case 3:
+        return Text("you are a admin");
       break;
     }
     return Text("error");

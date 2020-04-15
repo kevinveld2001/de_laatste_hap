@@ -5,6 +5,8 @@ import '../provider/login.dart';
 import 'package:provider/provider.dart';
 import '../provider/verlanglijst.dart';
 import '../provider/getProducts.dart';
+import '../provider/adminCheck.dart';
+
 
 import '../widgets/productCard.dart';
 
@@ -23,6 +25,8 @@ class VelanglijstScreen extends StatelessWidget {
     var loginState = Provider.of<LoginState>(context);
     var getProducts = Provider.of<GetProducts>(context);
     var wishListState = Provider.of<WishListState>(context);
+    var adminCheckState = Provider.of<AdminCheck>(context);
+
     if(wishListState.wishList.length == 0){
       wishListState.loadWishList(loginState.userID,getProducts.productList);
     }
@@ -52,6 +56,7 @@ class VelanglijstScreen extends StatelessWidget {
                       icon: Icon(Icons.exit_to_app,color: Colors.white,),
                       onPressed: (){
                         loginState.logout();
+                        adminCheckState.logout();
                       },
                     )
                   ],
