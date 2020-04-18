@@ -9,11 +9,12 @@ import 'provider/login.dart';
 import 'provider/verlanglijst.dart';
 import 'provider/tafel.dart';
 import 'provider/adminCheck.dart';
+import 'provider/getreserveringen.dart';
 //screens
 import 'screens/reserveren.dart';
 import 'screens/start.dart';
 import 'screens/verlanglijst.dart';
-
+import 'screens/adminPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<WishListState>(create: (_) => WishListState()),
         ChangeNotifierProvider<TafelState>(create: (_) => TafelState()),
         ChangeNotifierProvider<AdminCheck>(create: (_) =>AdminCheck()),
+        ChangeNotifierProvider<GetReserveringen>(create: (_) =>GetReserveringen()),
       ],
       child:MaterialApp(
       title: 'de laatste hap',
@@ -153,7 +155,7 @@ class ScreenSelect extends StatelessWidget {
         return Reserveren();
       break;
       case 3:
-        return Text("you are a admin");
+        return AdminPage();
       break;
     }
     return Text("error");
