@@ -1,3 +1,4 @@
+import 'package:de_laatste_hap/widgets/adminPageCard.dart';
 import 'package:flutter/material.dart';
 import '../provider/getreserveringen.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,74 @@ class AdminPage extends StatelessWidget {
     reserveringenListState.loadData();
   }
   
-    return Text("admin Page");
+    return Scaffold(
+      resizeToAvoidBottomPadding: true,
+      backgroundColor: Color(0xFFBE0029),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+                height: 90,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+
+                    //backbutton
+                    IconButton(icon: Icon(Icons.navigate_before,color: Colors.white,size: 25,),
+                    onPressed: (){
+                      print("i want back");
+                      Navigator.pop(context);
+                    },),
+                    
+
+                    Text("de laatste hap",style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 25,
+                      letterSpacing: 5.0
+                    ),),
+                    SizedBox(width: 25,)
+                  ],
+                ),
+              ),
+              Container(
+                
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - (90+56),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(36.0),
+                    topRight: Radius.circular(36.0),
+                  )
+                ),
+                child: ListView(
+                  padding: EdgeInsets.all(40),
+                  children: <Widget>[
+
+              for(int i=0;i<reserveringenListState.reservationList.length;i++)
+                 Column(
+                   children: <Widget>[
+                     AdminPageCard(
+                     reserveringenListState.reservationList[i].voornaam +" "+ 
+                     reserveringenListState.reservationList[i].achternaam,
+                     reserveringenListState.reservationList[i].tafel,
+                     reserveringenListState.reservationList[i].tijd),
+                     SizedBox(height: 20,)
+                   ],
+                 ),
+
+                ],)
+
+              
+              )
+
+
+
+          ],
+        ),
+      ),
+    );
   }
 }
