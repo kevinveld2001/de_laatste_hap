@@ -1,5 +1,6 @@
 
 
+import 'package:de_laatste_hap/screens/verlanglijst.dart';
 import 'package:flutter/material.dart';
 import 'askToLoginScreen.dart';
 
@@ -9,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../provider/tafel.dart';
 import '../screens/reserverendone.dart';
 import '../provider/adminCheck.dart';
-
+import '../provider/verlanglijst.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -66,6 +67,7 @@ void clearTextInput(){
   Widget build(BuildContext context) {
     var loginState = Provider.of<LoginState>(context);
     var tafelState = Provider.of<TafelState>(context);
+    var verlanglijstState = Provider.of<WishListState>(context);
     var adminCheckState = Provider.of<AdminCheck>(context);
 
    
@@ -98,6 +100,7 @@ void clearTextInput(){
                         onPressed: (){
                           loginState.logout();
                           adminCheckState.logout(); 
+                          verlanglijstState.clearList();
                         },
                       )
                     ],

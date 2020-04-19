@@ -57,6 +57,7 @@ class VelanglijstScreen extends StatelessWidget {
                       onPressed: (){
                         loginState.logout();
                         adminCheckState.logout();
+                        wishListState.clearList();
                       },
                     )
                   ],

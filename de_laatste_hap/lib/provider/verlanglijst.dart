@@ -78,6 +78,11 @@ notifyListeners();
 
 }
 
+void clearList(){
+  _wishList=  [];
+  notifyListeners();
+}
+
 
   
 }

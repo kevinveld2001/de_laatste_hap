@@ -24,13 +24,6 @@ class AdminPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
-                    //backbutton
-                    IconButton(icon: Icon(Icons.navigate_before,color: Colors.white,size: 25,),
-                    onPressed: (){
-                      print("i want back");
-                      Navigator.pop(context);
-                    },),
-                    
 
                     Text("de laatste hap",style: TextStyle(
                       color: Colors.white,
@@ -38,7 +31,7 @@ class AdminPage extends StatelessWidget {
                       fontSize: 25,
                       letterSpacing: 5.0
                     ),),
-                    SizedBox(width: 25,)
+                    
                   ],
                 ),
               ),
