@@ -57,7 +57,8 @@ class AdminPage extends StatelessWidget {
                      reserveringenListState.reservationList[i].voornaam +" "+ 
                      reserveringenListState.reservationList[i].achternaam,
                      reserveringenListState.reservationList[i].tafel,
-                     reserveringenListState.reservationList[i].tijd),
+                     reserveringenListState.reservationList[i].tijd,
+                     reserveringenListState.reservationList[i].date),
                      SizedBox(height: 20,)
                    ],
                  ),

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 
 class AdminPageCard extends StatelessWidget {
-  AdminPageCard(this._name,this._tafel,this._tijd);
+  AdminPageCard(this._name,this._tafel,this._tijd,this._date);
  
   final String _name;
   final String _tafel;
   final int _tijd;
+  final String _date;
   @override
   Widget build(BuildContext context) {
     return Card(child: Container(
@@ -27,8 +28,13 @@ class AdminPageCard extends StatelessWidget {
               fontSize: 15
             ),)
           ],),
-          Row(children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
             Text(_tafel,style: TextStyle(
+              fontSize: 15
+            ),),
+            Text(_date,style: TextStyle(
               fontSize: 15
             ),),
           ],)
