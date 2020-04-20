@@ -10,11 +10,11 @@ Hierbij heb ik de spesivicaties wel gevolgd.
 
 homescreen | homescreen |meer info screen
 :----------:|:---------:|:--------:|
-![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133515.jpg) | ![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133524.jpg) | ![](https://raw.githubusercontent.com/kevinveld2001/de_laatste_hap/master/screenshot/Screenshot_20200419-133531.jpg)
+![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133515.jpg) | ![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133524.jpg) | ![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133531.jpg)
 
 login screen | verlanglijst | reservering plaatsen
 :--------:|:-------:|:------:
-![](https://raw.githubusercontent.com/kevinveld2001/de_laatste_hap/master/screenshot/Screenshot_20200419-133544.jpg)|![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133637.jpg?raw=true)|![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133647.jpg?raw=true)
+![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133544.jpg?raw=true)|![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133637.jpg?raw=true)|![](https://github.com/kevinveld2001/de_laatste_hap/blob/master/screenshot/Screenshot_20200419-133647.jpg?raw=true)
 
 tafel reserveren | admin page
 :-----:|:-----:
